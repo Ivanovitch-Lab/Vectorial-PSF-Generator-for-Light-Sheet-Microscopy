@@ -1,25 +1,48 @@
-# PSF_lightsheet
+#  Vectorial PSF Generator for Light Sheet Microscopy
 
-This code simulates and saves the effective point spread function (PSF) for a light sheet microscope (LSM) with vectorial detection and Gaussian excitation in the Z direction.
+This script simulates a **vectorial detection PSF** combined with a **Gaussian excitation profile** in Z to produce an effective 3D PSF for use in deconvolution and microscopy simulation tasks.
 
-Key Steps:
-Import Libraries:
-Loads psfmodels (for PSF simulation), numpy, tifffile, and Path for file handling.
+---
 
-Set Acquisition Parameters:
-Defines the emission wavelength, image size (nx, nz), pixel sizes (dxy, dz), and the position of the point source (pz).
+## What It Does
 
-Define Microscope/Detection Parameters:
-Sets the objective numerical aperture (NA), immersion medium refractive index (ni), and sample refractive index (ns).
+- Simulates a **vectorial detection PSF** using numerical parameters.
+- Models a **Gaussian light sheet** excitation profile in the Z-axis.
+- Multiplies both to get the **effective PSF**.
+- Normalizes and saves the result as a 32-bit TIFF.
 
-Simulate Vectorial Detection PSF:
-Uses psfm.vectorial_psf_centered to compute the 3D detection PSF based on the above parameters.
+---
 
-Model Light Sheet Excitation Profile:
-Models the excitation (illumination) profile as a Gaussian in Z, with a specified full width at half maximum (fwhm_exc_z).
 
-Combine Excitation and Detection:
-Multiplies the detection PSF by the excitation profile to get the effective PSF for the light sheet microscope, then normalizes it.
 
-Save the Effective PSF:
-Writes the resulting 3D PSF as a TIFF file to the specified output directory.
+###  Optical Setup
+
+| Parameter     | Description                                | Value (default)      |
+|--------------|--------------------------------------------|----------------------|
+| `wavelength` | Emission wavelength (e.g. eGFP)            | `0.525 µm`           |
+| `NA`         | Numerical Aperture of detection objective  | `1.1`                |
+| `ni`         | Refractive index of immersion medium       | `1.333` (water)      |
+| `ns`         | Refractive index of the sample             | `1.45`               |
+
+### 📐 PSF Grid
+
+| Dimension     | Description                    | Value |
+|---------------|--------------------------------|-------|
+| `nx`          | Lateral (X/Y) size (odd number)| `65`  |
+| `nz`          | Axial (Z) size (odd number)    | `33`  |
+| `dxy`         | Lateral pixel size (µm)        | `0.347` |
+| `dz`          | Z-step (µm)                    | `2.0` |
+| `pz`          | Point source Z-position        | `0.0` (focus) |
+
+### Excitation Model
+
+- Light sheet is modeled as a **Gaussian beam** in Z.
+- Full Width at Half Maximum (FWHM): `3.0 µm`
+
+---
+
+##  Dependencies
+
+Install required Python packages:
+
+pip install psfmodels numpy tifffile
