@@ -1,6 +1,6 @@
 #  Vectorial PSF Generator for Light Sheet Microscopy
 
-This script simulates a **vectorial detection PSF** combined with a **Gaussian excitation profile** in Z to produce an effective 3D PSF for use in deconvolution and microscopy simulation tasks.
+This script simulates a **vectorial detection PSF** combined with a **Gaussian excitation profile** in Z to produce an effective 3D PSF for use in deconvolution.
 
 ---
 
